@@ -9,7 +9,7 @@ export default class DataView extends JetView {
 		return {
 			rows: [
 				{
-					view: "segmented", id: "segment", value: "Countries", multiview: true, options: [
+					view: "segmented", localId: "segment", value: "Countries", multiview: true, options: [
 						{value: "Countries", id: "Countries"},
 						{value: "Statuses", id: "Statuses"}
 					]
@@ -33,9 +33,8 @@ export default class DataView extends JetView {
 	}
 
 	init() {
-		const self = this;
-		this.$$("segment").attachEvent("onChange", function (newValue) {
-			self.$$(newValue).show();
+		this.$$("segment").attachEvent("onChange", (newValue) => {
+			this.$$(newValue).show();
 		});
 	}
 }
