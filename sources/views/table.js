@@ -16,7 +16,7 @@ export default class Table extends JetView {
 				},
 				{
 					cols: [
-						{view: "button", value: "Add", click: () => this.doAddItem(this.$$("table"))},
+						{view: "button", value: "Add", click: () => this.addItem(this.$$("table"))},
 						{view: "button", value: "Delete", click: () => this.deletedItem(this.$$("table"))}
 					]
 				}
@@ -28,7 +28,7 @@ export default class Table extends JetView {
 		view.queryView("datatable").parse(this._gridData);
 	}
 
-	doAddItem(table) {
+	addItem(table) {
 		table.add({Name: "name"});
 	}
 
