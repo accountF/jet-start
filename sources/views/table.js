@@ -24,17 +24,17 @@ export default class Table extends JetView {
 		};
 	}
 
-	init(view) {
-		view.queryView("datatable").parse(this._gridData);
+	init() {
+		this.tableComponent = this.$$("table");
+		this.tableComponent.parse(this._gridData);
 	}
 
 	addItem() {
-		this.$$("table").add({Name: "name"});
+		this.tableComponent.add({Name: "name"});
 	}
 
 	deletedItem() {
-		const table = this.$$("table");
-		const id = table.getSelectedId();
-		table.remove(id);
+		const id = this.tableComponent.getSelectedId();
+		this.tableComponent.remove(id);
 	}
 }
