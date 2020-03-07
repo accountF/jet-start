@@ -9,7 +9,7 @@ export default class DataView extends JetView {
 		return {
 			rows: [
 				{
-					view: "segmented", localId: "segment", value: "Countries", multiview: true, options: [
+					view: "segmented", localId: "segment", value: "Countries",options: [
 						{value: "Countries", id: "Countries"},
 						{value: "Statuses", id: "Statuses"}
 					]
