@@ -7,6 +7,7 @@ export default class Table extends JetView {
 	}
 
 	config() {
+		const _ = this.app.getService("locale")._;
 		return {
 			rows: [
 				{
@@ -16,8 +17,8 @@ export default class Table extends JetView {
 				},
 				{
 					cols: [
-						{view: "button", value: "Add", click: () => this.addItem()},
-						{view: "button", value: "Delete", click: () => this.deletedItem()}
+						{view: "button", value: _("Add"), click: () => this.addItem()},
+						{view: "button", value: _("Delete"), click: () => this.deletedItem()}
 					]
 				}
 			]

@@ -6,12 +6,13 @@ import {statuses} from "models/statuses.js";
 
 export default class DataView extends JetView {
 	config() {
+		const _ = this.app.getService("locale")._;
 		return {
 			rows: [
 				{
 					view: "segmented", localId: "segment", value: "Countries",options: [
-						{value: "Countries", id: "Countries"},
-						{value: "Statuses", id: "Statuses"}
+						{value: _("Countries"), id: "Countries"},
+						{value: _("Statuses"), id: "Statuses"}
 					]
 				},
 				{
