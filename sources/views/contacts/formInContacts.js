@@ -35,8 +35,10 @@ export default class FormInContactsView extends JetView {
 		const dataFromForm = this.form.getValues();
 		if(dataFromForm.id){
 			contacts.updateItem(dataFromForm.id, dataFromForm);
+			webix.message("Contact was updated");
 		} else {
 			contacts.add(dataFromForm);
+			webix.message("Contact was added");
 		}
 		this.form.clear();
 	}

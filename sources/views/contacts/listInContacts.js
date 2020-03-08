@@ -39,13 +39,14 @@ export default class ListInContactsView extends JetView {
 
 	addItemIntoList(){
 		const id = contacts.add({Name:"Name", Email:"lalala@mail.ru"});
+		webix.message("Contact was added");
 		this.list.select(id);
 		this.setIdIntoUrl(id);
 	}
 
 	deleteItem(id){
 		contacts.remove(id);
-		this.setIdIntoUrl(id);
+		webix.message("Contact was deleted");
 	}
 
 	setIdIntoUrl(id) {
