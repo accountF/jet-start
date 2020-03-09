@@ -6,7 +6,9 @@ export default class SettingsView extends JetView {
 		return {
 			rows: [
 				{
-					view: "segmented", localId: "language", inputWidth: 250, align: "center", options: [
+					view: "segmented", localId: "language", inputWidth: 250, align: "center",
+					value: this.app.getService("locale").getLang(),
+					options: [
 						{ id: "en", value: _("English") },
 						{ id: "ru", value: _("Russian") }
 					],

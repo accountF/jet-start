@@ -31,23 +31,19 @@ export default class ListInContactsView extends JetView {
 
 		const idFromUrl = url[0].params.id;
 		const lengthOfContacts = contacts.config.data.length;
-		if (idFromUrl && lengthOfContacts > 0) {
-			if (this.list.exists(idFromUrl)) {
-				this.list.select(idFromUrl);
-			} else {
-				webix.message("ID doesn't exist");
-				this.list.select(this.list.getFirstId());
-			}
-		} else if (!idFromUrl && lengthOfContacts > 0) {
+
+		if (contacts.exists(idFromUrl)) {
+			this.list.select(idFromUrl);
+		} else if(!idFromUrl && lengthOfContacts > 0) {
 			this.list.select(this.list.getFirstId());
 		} else {
 			this.show("./contacts");
-			webix.message("Contacts don't exist");
+			webix.message("Please check the data");
 		}
 	}
 
 	addItemIntoList() {
-		const id = contacts.add({Name: "Name", Email: "lalala@mail.ru"});
+		const id = contacts.add({Name: "Name"}, 0);
 		webix.message("Contact was added");
 		this.list.select(id);
 		this.setIdIntoUrl(id);

@@ -31,7 +31,7 @@ export default class FormInContactsView extends JetView {
 	}
 	urlChange(view, url) {
 		const idFromUrl = url[0].params.id;
-		if(contacts.config.data.length){
+		if(contacts.exists(idFromUrl)){
 			const item = contacts.getItem(idFromUrl);
 			this.form.setValues(item);
 		}
