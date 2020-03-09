@@ -36,6 +36,11 @@ export default class Table extends JetView {
 
 	deletedItem() {
 		const id = this.tableComponent.getSelectedId();
-		this.tableComponent.remove(id);
+		if(id){
+			this.tableComponent.remove(id);
+		} else {
+			webix.message("Element is not chosen");
+		}
+
 	}
 }

@@ -21,7 +21,6 @@ export default class ListInContactsView extends JetView {
 					click: () => this.addItemIntoList()
 				}
 			]
-
 		};
 	}
 
@@ -30,32 +29,38 @@ export default class ListInContactsView extends JetView {
 		this.list.sync(contacts);
 		this.list.attachEvent("onAfterSelect", (id) => this.setIdIntoUrl(id));
 
-		if (url[0].params.id) {
-			this.list.select(url[0].params.id);
-		} else {
+		const idFromUrl = url[0].params.id;
+		const lengthOfContacts = contacts.config.data.length;
+		if (idFromUrl && lengthOfContacts > 0) {
+			if (this.list.exists(idFromUrl)) {
+				this.list.select(idFromUrl);
+			} else {
+				webix.message("ID doesn't exist");
+				this.list.select(this.list.getFirstId());
+			}
+		} else if (!idFromUrl && lengthOfContacts > 0) {
 			this.list.select(this.list.getFirstId());
+		} else {
+			this.show("./contacts");
+			webix.message("Contacts don't exist");
 		}
 	}
 
-	addItemIntoList(){
-		const id = contacts.add({Name:"Name", Email:"lalala@mail.ru"});
+	addItemIntoList() {
+		const id = contacts.add({Name: "Name", Email: "lalala@mail.ru"});
 		webix.message("Contact was added");
 		this.list.select(id);
 		this.setIdIntoUrl(id);
 	}
 
-	deleteItem(id){
+	deleteItem(id) {
 		contacts.remove(id);
 		webix.message("Contact was deleted");
+		this.show("./contacts");
 	}
 
 	setIdIntoUrl(id) {
-		this.setParam("id", id, true);
+		this.show(`./contacts?id=${id}`);
 	}
 
-	urlChange() {
-		const id = this.getParam("id");
-		const itemById = this.list.getItem(id);
-		this.app.callEvent("onChangeUrlInList", [itemById]);
-	}
 }
