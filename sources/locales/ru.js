@@ -1,0 +1,16 @@
+export default {
+	"English": "Английский",
+	"Russian": "Русский",
+	"Contacts": "Контакты",
+	"Data": "Данные",
+	"Settings": "Настройки",
+	"Countries": "Страны",
+	"Statuses": "Статусы",
+	"Add": "Добавить",
+	"Save": "Сохранить",
+	"Delete": "Удалить",
+	"Name": "Имя",
+	"Status": "Статус",
+	"Country": "Страна",
+	"E-mail": "Почта",
+};
