@@ -30,11 +30,10 @@ export default class ListInContactsView extends JetView {
 		this.list.attachEvent("onAfterSelect", (id) => this.setIdIntoUrl(id));
 
 		const idFromUrl = url[0].params.id;
-		const lengthOfContacts = contacts.config.data.length;
 
 		if (contacts.exists(idFromUrl)) {
 			this.list.select(idFromUrl);
-		} else if(!idFromUrl && lengthOfContacts > 0) {
+		} else if(!idFromUrl && contacts.count()) {
 			this.list.select(this.list.getFirstId());
 		} else {
 			this.show("./contacts");
