@@ -11,12 +11,12 @@ export default class FormInContactsView extends JetView {
 			localId: "myForm",
 			autoheight: false,
 			elements: [
-				{view: "text", label: _("Name"), name: "Name"},
+				{view: "text", label: _("Name"), name: "FirstName"},
 				{view: "text", label: _("E-mail"), name: "Email"},
-				{view: "combo", label: _("Countries"), name: "Country", value:"",
+				{view: "combo", label: _("Countries"), name: "Address", value:"",
 					options:{body: {template:"#Name#"}, data: countries}},
-				{view: "combo", label: _("Statuses"), name: "Status", value:"",
-					options:{body: {template:"#Name#"}, data: statuses}},
+				{view: "combo", label: _("Statuses"), name: "StatusID", value:"",
+					options:{body: {template:"#Value#"}, data: statuses}},
 				{
 					cols: [
 						{view: "button", value: _("Save"), click: () => this.saveContact()}

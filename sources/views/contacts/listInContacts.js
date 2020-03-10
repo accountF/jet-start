@@ -1,5 +1,5 @@
 import {JetView} from "webix-jet";
-import {contacts} from "models/contacts.js";
+import {contacts} from "../../models/contacts.js";
 
 export default class ListInContactsView extends JetView {
 	config() {
@@ -10,7 +10,7 @@ export default class ListInContactsView extends JetView {
 					view: "list",
 					localId: "contactsList",
 					select: true,
-					template: "#Name#, e-mail: #Email# <span class='webix_icon wxi-close'></span>",
+					template: "#FirstName#, e-mail: #Email# <span class='webix_icon wxi-close'></span>",
 					onClick: {
 						"wxi-close": (e, id) => this.deleteItem(id)
 					}
@@ -26,26 +26,33 @@ export default class ListInContactsView extends JetView {
 
 	init(view, url) {
 		this.list = this.$$("contactsList");
-		this.list.sync(contacts);
-		this.list.attachEvent("onAfterSelect", (id) => this.setIdIntoUrl(id));
 
-		const idFromUrl = url[0].params.id;
 
-		if (contacts.exists(idFromUrl)) {
-			this.list.select(idFromUrl);
-		} else if(!idFromUrl && contacts.count()) {
-			this.list.select(this.list.getFirstId());
-		} else {
-			this.show("./contacts");
-			webix.message("Please check the data");
-		}
+		contacts.waitData.then(()=>{
+			this.list.sync(contacts);
+			this.list.attachEvent("onAfterSelect", (id) => this.setIdIntoUrl(id));
+
+			const idFromUrl = url[0].params.id;
+
+			if (contacts.exists(idFromUrl)) {
+				this.list.select(idFromUrl);
+			} else if(!idFromUrl && contacts.count()) {
+				this.list.select(this.list.getFirstId());
+			} else {
+				this.show("./contacts");
+				webix.message("Please check the data");
+			}
+		});
+
 	}
 
 	addItemIntoList() {
-		const id = contacts.add({Name: "Name"}, 0);
-		webix.message("Contact was added");
-		this.list.select(id);
-		this.setIdIntoUrl(id);
+		contacts.waitSave(() => {
+			contacts.add({FirstName: "Name"}, 0);
+		}).then((res) => {
+			this.list.select(res.id);
+			this.setIdIntoUrl(res.id);
+		});
 	}
 
 	deleteItem(id) {
