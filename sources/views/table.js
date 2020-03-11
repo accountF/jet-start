@@ -27,20 +27,26 @@ export default class Table extends JetView {
 
 	init() {
 		this.tableComponent = this.$$("table");
-		this.tableComponent.parse(this._gridData);
+		this._gridData.waitData.then(()=>{
+			this.tableComponent.parse(this._gridData);
+		});
 	}
 
 	addItem() {
-		this.tableComponent.add({Name: "name"});
+		this._gridData.waitSave(() => {
+			this._gridData.add({Name: "name"}, 0);
+		}).then((res) => {
+			this.tableComponent.select(res.id);
+		});
+
 	}
 
 	deletedItem() {
 		const id = this.tableComponent.getSelectedId();
 		if(id){
-			this.tableComponent.remove(id);
+			this._gridData.remove(id);
 		} else {
 			webix.message("Element is not chosen");
 		}
-
 	}
 }
